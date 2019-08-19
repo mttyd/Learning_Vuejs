@@ -28,15 +28,25 @@
 
   <!-- our javascript -->
   <script>
-    //plain javascript ##############################################
-    const heading = document.querySelector('h1');
-    const input = document.querySelector('input');
+// jquery
+// $('input').on('keyup', (e) =>{
+//   $('h1').text(e.target.value);
+// })
 
-    //listen to input box for typing
-    input.addEventListener('keyup', (e) => {
-      const text = e.target.value;
-      heading.innerText = text;
-    });
+//or es6 implicit return in 1 line
+$('input').on('keyup', (e) => $('h1').text(e.target.value));
+
+
+
+//plain javascript ##############################################
+    // const heading = document.querySelector('h1');
+    // const input = document.querySelector('input');
+
+    // //listen to input box for typing
+    // input.addEventListener('keyup', (e) => {
+    //   const text = e.target.value;
+    //   heading.innerText = text;
+    // });
 
 
     //with vue ######################################################
