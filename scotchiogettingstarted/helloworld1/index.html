@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World</title>
+
+  <!-- css -->
+  <!-- Bulma is a CSS framework based on flexbox-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+
+  <!-- js -->
+  <script src="https://unpkg.com/jquery"></script>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+
+  <!-- plain javascript -->
+  <section class="section container">
+    <h1 class="title">My text goes here!</h1>
+
+    <input type="text" class="input">
+
+  </section>
+
+  <!-- vue -->
+  <section class="section container">
+  </section>
+
+  <!-- our javascript -->
+  <script>
+    //plain javascript ##############################################
+    const heading = document.querySelector('h1');
+    const input = document.querySelector('input');
+
+    //listen to input box for typing
+    input.addEventListener('keyup', (e) => {
+      const text = e.target.value;
+      heading.innerText = text;
+    });
+
+
+    //with vue ######################################################
+  </script>
+</body>
+</html>
