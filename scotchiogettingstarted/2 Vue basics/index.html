@@ -37,7 +37,9 @@
 
         methods: {
             celebrate: function () {
-                alert('CELEBRATING!');
+                //this refers to data instance
+                //  ` is ES6
+                alert(`${this.name} is celebrating!`);
             }
 
         }
