@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Learning Vue Like a Boss!</title>
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
+
+  <!-- js -->
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <!-- our template -->
+  <section id="app" class="section container">
+      {{ picture }}
+      <img v-bind:src="picture">
+
+      <div v-if="isSuccess" class="notification is-success">
+        We did it!
+      </div>
+      <div v-if="!isSuccess" class="notification is-danger">
+        We didn't do it
+      </div>
+  </section>
+
+  <!-- our javascript -->
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        picture: 'https://cdn.shopify.com/s/files/1/0191/7850/products/RICKMORTY_37_-_4x6_COVER_B_SOLICIT_WEB.jpg?v=1524614198',
+        isSuccess: true
+      }
+    });
+  </script>
+</body>
+</html>
