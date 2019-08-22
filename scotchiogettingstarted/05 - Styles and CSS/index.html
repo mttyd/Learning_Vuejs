@@ -65,10 +65,17 @@
 
     <!-- Inline Styles ========================================= -->
     <h2 class="title">Inline Styles</h2>
+    <div class="notification" v-bind:style="{ color: myColor, fontsize: mySize, backgroundcolor: myBgColor }">
+      I am a notification!
 
+    </div>
     <!-- Object Styles ========================================= -->
     <h2 class="title">Object Styles</h2>
-
+    <div class="notification" :style="myMessageStyles">
+        <div class="message-body">
+          I am a notification!
+        </div>
+      </div>
   </section>
 
   <!-- our javascript -->
@@ -88,7 +95,19 @@
 
         //array classes
         color : '',
-        size : ''
+        size : '',
+
+        //for styles
+        color: 'red',
+        fontSize: '20px',
+        backgroundColor: '#aaa',
+
+        myMessageStyles: {
+          myColor: 'red',
+          mySize: '20px',
+          myBgColor: '#aaa'
+        }
+       
       },
       methods: {
         celebrate: function() {

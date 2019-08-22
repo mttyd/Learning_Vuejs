@@ -6,8 +6,12 @@
 
   <!-- css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
-  <style>
 
+  <style>
+      .is-crazy{
+        position: absolute;
+        transition: 0.3s ease all;
+      }
   </style>
 
   <!-- js -->
@@ -17,12 +21,52 @@
   <!-- our template -->
   <section id="app" class="section container">
     
+    <!-- counter -->
+      <h1 class="title">Counter!</h1>
+      <div class="box context has-text-centered">
+        <h2 class="title is-1">{{ count }}</h2>
+        <a class="button is-danger" v-on:click.prevent="incrementCounter">Count Up</a>
+        <a class="button is-danger" v-on:click.prevent="timesTwentyNine">Times 29!</a>
+        <a class="button is-danger" v-on:click.prevent="clearCounter">C</a>
+      </div>
+
+    <!-- crazy buttons  -->
+    <a class="button is-info is-crazy" 
+    :style="buttonOffsets" 
+    @mouseenter="moveButton">
+      Can't catch me!
+    </a>
+
   </section>
 
   <!-- our javascript -->
   <script>
     const app = new Vue({
-
+      el: '#app',
+      data: {
+        count: 0,
+        buttonOffsets: {
+          top: null,
+          left: null
+        }
+      },
+      methods: {
+        incrementCounter: function(){
+          this.count+=1
+        },
+        timesTwentyNine: function(){
+          this.count*=29
+        },
+        clearCounter: function(){
+          this.count = 0
+        },
+        moveButton: function(e){
+          this.buttonOffsets = {
+            top: `${Math.random() * window.innerHeight}px`,
+            left:`${Math.random() * window.innerWidth}px`
+          }
+        }
+      }
     });
   </script>
 </body>
