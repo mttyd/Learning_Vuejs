@@ -13,13 +13,30 @@
 <body>
   <!-- our template -->
   <section id="app" class="section container">
-
+    {{ count }}
+    <a class="button is-info" @click="incrementCount">
+      update
+    </a>
   </section>
 
   <!-- our javascript -->
   <script>
     const app = new Vue({
+      el: '#app',
 
+      data: {
+        users: null,
+        count: 0
+      },
+      methods: {
+        incrementCount: function(){
+          this.count += 1;
+        }
+      },
+
+      created: function(){
+        this.incrementCount();
+      }
     });
   </script>
 </body>

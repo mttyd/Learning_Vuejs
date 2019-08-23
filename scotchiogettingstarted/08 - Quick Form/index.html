@@ -26,17 +26,30 @@
     <div class="box">
 
       <!-- our signup form ===================== -->
-      <form id="signup-form">
+      <form id="signup-form" @submit.prevent="processForm">
         <!-- name -->
         <div class="field">
           <label class="label">Name</label>
-          <input type="text" class="input" name="name">
+          <input 
+          type="text" 
+          class="input" 
+          name="name"
+          v-model="name">
         </div>
 
         <!-- email -->
         <div class="field">
           <label class="label">Email</label>
-          <input type="email" class="input" name="email">
+          <input 
+            type="email" 
+            class="input" 
+            name="email" 
+            v-model="email"
+            @blur="validateEmail">
+
+          <p class="help is-danger" v-if="errors.email">
+            Please enter a valid email;
+          </p>
         </div>
 
         <!-- submit button -->
@@ -57,6 +70,31 @@
     // plain javscript ==================================
 
     // vue ==========================================
+    const app = new Vue({
+      el: "#signup-form",
+      data: {
+        name: '',
+        email: '',
+        errors:{
+          name: false,
+          email: false
+      }
+      },
+      methods:{
+        processForm: function(){
+          console.log({ name: this.name, email: this.email });
+          alert('Processing');
+        },
+        validateEmail: function (){
+          const isValid = window.isValidEmail(this.email);
+          console.log(isValid);
+
+          this.errors.email = !isValid;
+        }
+        
+      }
+    
+    })
 
     // helpers ===============================================
     /**
