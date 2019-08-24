@@ -49,7 +49,7 @@
 
   <!-- our javascript -->
   <script>
-    Vue.component('gif-box', {
+    const GifBox = {
       props: ['gif'],
       template: `
         <div class="gif-box">
@@ -65,10 +65,13 @@
           </a>
         </div>
       `
-    });
+    };
 
-    Vue.component('gif-grid', {
+    const GifGrid = {
       props: ['gifs'],
+      components:{
+        'gif-box': GifBox
+      },
       template: `
         <div class="columns is-multiline" v-if="gifs">
           <div class="column is-one-third" v-for="gif in gifs">
@@ -78,7 +81,7 @@
           </div>
         </div>
       `
-    });
+    };
 
     const app = new Vue({
       el: '#app',
@@ -93,7 +96,9 @@
         trendingGifs: null,
         query: ''
       },
-
+      components: {
+        'gif-grid': GifGrid,        
+      },
       methods: {
         fetchTrendingGifs: function() {
           const url = `${this.apiUrl}/trending?api_key=${this.apiKey}&limit=8`;
@@ -110,7 +115,7 @@
             .then(data => this.searchedGifs = data.data);
         }
       },
-
+   
       created: function() {
         this.fetchTrendingGifs();
       }

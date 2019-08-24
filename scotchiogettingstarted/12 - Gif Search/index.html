@@ -7,6 +7,9 @@
   <!-- css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
   <style>
+    input[name=query]{
+      margin-bottom: 15px;
+    }
     .gif-box {
       position: relative;
       background: #333;
@@ -29,12 +32,36 @@
 </head>
 <body>
   <!-- our template -->
+
   <section id="app" class="section container">    
 
-    <div class="columns is-multiline" v-if="gifs">
+    <!--  SEARCH    -->    
+  <h2 class="title">Search</h2>
 
-      <div class="column is-one-quarter" v-for="gif in gifs">
+  <input type="text"  class="input" name="query" v-model="query" v-on:keyup="searchGifs">
 
+  <div class="columns is-multiline" v-if="searchedGifs">
+      <div class="column is-one-quarter" v-for="gif in searchedGifs">
+        <div class="gif-box">
+          <a :href="gif.url">
+            <img class="gif-image" v-bind:src="gif.images.original.url">
+          </a>
+          <a 
+            class="gif-user" 
+            v-if="gif.user" 
+            v-bind:href="gif.user.profile_url">
+              <img v-bind:src="gif.user.avatar_url" height="40" width="40">
+              {{ gif.user.display_name }}
+          </a>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    <!-- TRENDING -->
+    <h2 class="title">Trending</h2>
+    <div class="columns is-multiline" v-if="trendingGifs">
+      <div class="column is-one-quarter" v-for="gif in trendingGifs">
         <div class="gif-box">
           <a :href="gif.url">
             <img class="gif-image" :src="gif.images.original.url">
@@ -42,15 +69,12 @@
           <a 
             class="gif-user" 
             v-if="gif.user" 
-            :href="gif.user.profile_url">
-              <img :src="gif.user.avatar_url" height="40" width="40">
+            v-bind:href="gif.user.profile_url">
+              <img v-bind:src="gif.user.avatar_url" height="40" width="40">
               {{ gif.user.display_name }}
           </a>
         </div>
-
-
       </div>
-
     </div>
 
   </section>
@@ -66,22 +90,32 @@
         // 80bfcbf357864cd18518c324f47a7098
         apiUrl: 'http://api.giphy.com/v1/gifs',
         apiKey: '80bfcbf357864cd18518c324f47a7098',
-        gifs: null
+        trendingGifs: null,
+        searchedGifs: null,
+        query: ''
       },
 
       methods: {
         fetchGifs: function() {
-          const url = `${this.apiUrl}/trending?api_key=${this.apiKey}`;
+          const url = `${this.apiUrl}/trending?api_key=${this.apiKey}&limit=8`;
 
           fetch(url)
             .then(response => response.json())
-            .then(data => this.gifs = data.data);
+            .then(data => this.trendingGifs = data.data);
+        },
+        searchGifs: function(){
+          const url = `${this.apiUrl}/search?api_key=${this.apiKey}&q=${this.query}&limit=8`;
+
+          fetch(url)
+            .then(response => response.json())
+            .then(data => this.searchedGifs = data.data);
         }
       },
 
       created: function() {
         this.fetchGifs();
       }
+    
     });
   </script>
 </body>

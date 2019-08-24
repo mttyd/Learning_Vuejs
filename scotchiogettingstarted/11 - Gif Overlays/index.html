@@ -6,7 +6,24 @@
 
   <!-- css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.css">
-
+  <style>
+  .gif-user{
+    display:flex;
+    align-items: center;
+    position: absolute;
+    left: 15px;
+    bottom:15px;
+    z-index: 10000;
+  
+  }
+  .gif-user img{
+    margin-right: 8px;
+  }
+  .gif-box{
+    position: relative;
+    background: #333;
+  }
+    </style>
   <!-- js -->
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>  
@@ -14,9 +31,24 @@
 <body>
   <!-- our template -->
   <section id="app" class="section container">
-    
-    <div v-if="gifs" v-for="gif in gifs">
-      <img :src="gif.images.original.url">
+        
+      <div class="columns is-multine" v-if="gifs">
+        <div class="column is-one-quarter" v-for="gif in gifs">      
+          <div class="gif-box">
+           <a v-bind:href="gif.url">
+              <img :src="gif.images.original.url" >
+           </a>
+           <a 
+              class="gif-user" 
+              v-if="gif.user" 
+              v-bind:href="gif.user.profile_url"
+            >
+             <img v-bind:src="gif.user.avatar_url" height="40" width="40">
+             {{ gif.user.display_name }}
+           </a>
+            </div>
+          
+       
     </div>
 
   </section>
@@ -30,14 +62,14 @@
         // test giphy api key
         // if the usage limit has been hit, visit https://developers.giphy.com to get a new one
         // 80bfcbf357864cd18518c324f47a7098
-        apiUrl: 'http://api.giphy.com/v1/gifs',
-        apiKey: '80bfcbf357864cd18518c324f47a7098',
+        apiUrl: 'https://api.giphy.com/v1/gifs/trending',
+        apiKey: 'q5oVO6D5pdTEWtTTMa1H0hUgV6R9p4WL&limit=25&rating=G',
         gifs: null
       },
 
       methods: {
         fetchGifs: function() {
-          const url = `${this.apiUrl}/trending?api_key=${this.apiKey}`;
+          const url = `${this.apiUrl}?api_key=${this.apiKey}`;
 
           fetch(url)
             .then(response => response.json())
